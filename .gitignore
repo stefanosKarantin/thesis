@@ -3,5 +3,6 @@
 /pymir-lpc/
 /.ipynb_checkpoints/
 /scikit-learn-videos-master/
+/karantinakis/
 .gitignore~
 *.pyc
