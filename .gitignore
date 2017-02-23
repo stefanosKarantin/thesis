@@ -4,5 +4,6 @@
 /.ipynb_checkpoints/
 /scikit-learn-videos-master/
 /karantinakis/
+__pycache__/
 .gitignore~
 *.pyc
