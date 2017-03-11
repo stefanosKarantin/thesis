@@ -8,3 +8,6 @@ __pycache__/
 .gitignore~
 *.pyc
 Untitled.ipynb
+copy.sh
+/aibo-data-train/
+/docs/
