@@ -12,18 +12,38 @@ emphatic = []
 neutral = []
 motherese = []
 
+badfilenames=[]
+
 pathname = 'aibo-data-train/'
 for filename in os.listdir(pathname):
 	if filename.endswith('.wav') or filename.endswith('.mp3'):
-		if fnmatch.fnmatch(filename,'*A*'):
-			anger.append(get_feature_table(pathname+filename))
+		if fnmatch.fnmatch(filename,'*A.*'):
+			an = get_feature_table(pathname+filename)
+			if an is not None:
+				anger.append(an)
+			else:
+				badfilenames.append(filename)
 		elif fnmatch.fnmatch(filename,'*E*'):
-			emphatic.append(get_feature_table(pathname+filename))
+			e = get_feature_table(pathname+filename)
+			if e is not None:
+				emphatic.append(e)
+			else:
+				badfilenames.append(filename)
 		elif fnmatch.fnmatch(filename,'*N*'):
-			neutral.append(get_feature_table(pathname+filename))
+			n = get_feature_table(pathname+filename)
+			if n is not None:
+				neutral.append(n)
+			else:
+				badfilenames.append(filename)
 		elif fnmatch.fnmatch(filename,'*M*'):
-			motherese.append(get_feature_table(pathname+filename))
+			m = get_feature_table(pathname+filename)
+			if m is not None:
+				motherese.append(m)
+			else:
+				badfilenames.append(filename)
 
 training_set = {'anger': anger, 'emphatic': emphatic, 'neutral': neutral, 'motherese': motherese}
 
-print anger
+#print badfilenames
+print anger[45].shape
+print emphatic[100].shape

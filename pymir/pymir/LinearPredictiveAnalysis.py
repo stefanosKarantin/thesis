@@ -21,6 +21,7 @@ def lpc(seq, order=None):
     # Squared prediction error, defined as e[n] = a[n] + \sum_k=1^order (a_k *
     # s_{n-k})
     err_term = acseq[0] + sum(a * c for a, c in zip(acseq[1:], a_coef))
+
     return a_coef.tolist(), np.sqrt(err_term)
 
 
@@ -41,7 +42,12 @@ def lpcc(seq, err_term, order=None):
     '''
     if order is None:
         order = len(seq) - 1
-    lpcc_coeffs = [np.log(err_term), -seq[0]]
+
+    try:
+        lpcc_coeffs = [np.log(err_term), -seq[0]]
+    except Warning:
+        return None
+        
     for n in xrange(2, order + 1):
         # Use order + 1 as upper bound for the last iteration
         upbound = (order + 1 if n > order else n)

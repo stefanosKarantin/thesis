@@ -6,6 +6,8 @@ def getDeltas(seq, derivative=2, winsize=2):
     ret = seq[:]
     for i in xrange(derivative):
         seq = _getSingleDeltas(seq)
+        if seq is None:
+            return None
         np.concatenate((ret,seq),axis=0)
     return ret
 
@@ -39,6 +41,10 @@ def _getSingleDeltas(feature, winsize=2):
                 fwd = feature[frameindex + k]
             if frameindex - k >= 0:
                 bwd = feature[frameindex - k]
-            innersum += k * (fwd - bwd)
+            try:
+                innersum += k * (fwd - bwd)
+            except (TypeError,Warning):
+                return None
+
         ret.append(innersum / denom)
     return ret
